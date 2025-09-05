@@ -1,12 +1,10 @@
 services:
-  # Database Service (must be first)
+  # Database Service
   - type: pserv
     name: letrum-agency-db
     plan: starter
-    databaseName: letrum_agency
-    user: letrum_user
 
-  # Backend Service
+  # Backend Service  
   - type: web
     name: letrum-agency-backend
     env: node
@@ -25,7 +23,6 @@ services:
         value: "7d"
       - key: PORT
         value: "10000"
-    healthCheckPath: /api/v1/health
 
   # Frontend Service
   - type: web
@@ -40,4 +37,4 @@ services:
         fromService:
           name: letrum-agency-backend
           type: web
-          property: host
+          property: url
