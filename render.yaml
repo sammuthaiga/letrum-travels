@@ -7,7 +7,7 @@ services:
   # Backend Service  
   - type: web
     name: letrum-agency-backend
-    runtime: node
+    env: node
     plan: starter
     rootDir: backend
     buildCommand: npm install && npm run build && npx prisma db push && npx prisma generate
@@ -27,7 +27,7 @@ services:
   # Frontend Service
   - type: web
     name: letrum-agency-frontend
-    runtime: node
+    env: node
     plan: starter
     rootDir: frontend
     buildCommand: npm install && npm run build
