@@ -7,10 +7,10 @@ services:
   # Backend Service  
   - type: web
     name: letrum-agency-backend
-    env: node
+    runtime: node
     plan: starter
     rootDir: backend
-    buildCommand: npm install && npm run build && npx prisma migrate deploy && npx prisma generate
+    buildCommand: npm install && npm run build && npx prisma db push && npx prisma generate
     startCommand: npm run start:prod
     envVars:
       - key: DATABASE_URL
@@ -27,14 +27,11 @@ services:
   # Frontend Service
   - type: web
     name: letrum-agency-frontend
-    env: node
+    runtime: node
     plan: starter
     rootDir: frontend
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          name: letrum-agency-backend
-          type: web
-          property: url
+        value: https://letrum-agency-backend.onrender.com/api/v1
