@@ -1,0 +1,42 @@
+services:
+  # Backend Service
+  - type: web
+    name: letrum-agency-backend
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build && npx prisma generate
+    startCommand: npm run start:prod
+    rootDir: backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: "7d"
+      - key: PORT
+        value: "10000"
+    healthCheckPath: /api/v1/health
+
+  # Frontend Service
+  - type: web
+    name: letrum-agency-frontend
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    rootDir: frontend
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: letrum-agency-backend
+          envVarKey: RENDER_EXTERNAL_URL
+          property: url
+
+  # Database Service
+  - type: pserv
+    name: letrum-agency-db
+    plan: starter
+    env: postgresql
+    postgresMajorVersion: 15

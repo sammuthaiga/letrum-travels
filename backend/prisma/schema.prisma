@@ -1,0 +1,286 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  phone     String?
+  avatar    String?
+  isActive  Boolean  @default(true)
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  bookings      Booking[]
+  visaRequests  VisaRequest[]
+  orders        Order[]
+  reviews       Review[]
+
+  @@map("users")
+}
+
+model Booking {
+  id          String      @id @default(cuid())
+  userId      String
+  type        BookingType
+  status      BookingStatus @default(PENDING)
+  totalAmount Float
+  details     Json
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
+}
+
+model Tour {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  shortDesc     String
+  duration      String
+  price         Float
+  images        String[]
+  itinerary     Json
+  inclusions    String[]
+  exclusions    String[]
+  maxGuests     Int
+  difficulty    String
+  category      String
+  location      String?
+  meetingPoint  String?
+  isActive      Boolean  @default(true)
+  featuredImage String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  reviews Review[]
+
+  @@map("tours")
+}
+
+model Flight {
+  id              String   @id @default(cuid())
+  airline         String
+  flightNumber    String
+  origin          String
+  destination     String
+  departureTime   DateTime
+  arrivalTime     DateTime
+  duration        String
+  price           Float
+  availableSeats  Int
+  aircraft        String?
+  baggage         Json?    // Baggage allowance details
+  layovers        Json?    // Layover information
+  class           String   @default("Economy") // Economy, Business, First
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("flights")
+}
+
+model Car {
+  id           String   @id @default(cuid())
+  make         String
+  model        String
+  year         Int
+  category     String   // Economy, Compact, SUV, Luxury, etc.
+  transmission String   // Manual, Automatic
+  fuelType     String   // Petrol, Diesel, Electric, Hybrid
+  seats        Int
+  doors        Int
+  aircon       Boolean  @default(true)
+  pricePerDay  Float
+  images       String[]
+  features     String[] // GPS, Bluetooth, etc.
+  location     String   // Pickup location
+  isAvailable  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("cars")
+}
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  content       String
+  excerpt       String
+  featuredImage String?
+  author        String
+  tags          String[]
+  isPublished   Boolean   @default(false)
+  publishedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("blog_posts")
+}
+
+model VisaRequest {
+  id                String            @id @default(cuid())
+  userId            String
+  destinationCountry String
+  travelDate        DateTime
+  returnDate        DateTime?
+  purpose           String
+  documents         String[]
+  status            VisaRequestStatus @default(SUBMITTED)
+  notes             String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("visa_requests")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  images      String[]
+  category    String
+  stock       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  orderItems OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  totalAmount Float
+  status      OrderStatus @default(PENDING)
+  shippingAddress Json
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  // Relations
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  tourId    String?
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour Tour? @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model HotDeal {
+  id              String   @id @default(cuid())
+  title           String
+  description     String
+  shortDesc       String
+  originalPrice   Float
+  discountPrice   Float
+  discountPercent Int
+  duration        String
+  location        String
+  images          String[]
+  featuredImage   String
+  highlights      String[]
+  inclusions      String[]
+  maxGuests       Int
+  category        String   // Safari, Cultural, Adventure, Beach, etc.
+  difficulty      String   // Easy, Moderate, Challenging
+  startDate       DateTime
+  endDate         DateTime
+  isActive        Boolean  @default(true)
+  isFeatured      Boolean  @default(false)
+  availableSlots  Int
+  bookedSlots     Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("hot_deals")
+}
+
+// Enums
+enum Role {
+  USER
+  ADMIN
+  STAFF
+}
+
+enum BookingType {
+  FLIGHT
+  CAR_RENTAL
+  TOUR
+  HOTEL
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum VisaRequestStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  DOCUMENTS_NEEDED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
