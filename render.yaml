@@ -4,7 +4,7 @@ services:
     name: letrum-agency-backend
     env: node
     plan: starter
-    buildCommand: npm install && npm run build && npx prisma generate
+    buildCommand: npm install && npm run build && npx prisma migrate deploy && npx prisma generate
     startCommand: npm run start:prod
     rootDir: backend
     envVars:
