@@ -2,8 +2,9 @@ services:
   # Database Service (must be first)
   - type: pserv
     name: letrum-agency-db
-    env: postgresql
     plan: starter
+    databaseName: letrum_agency
+    user: letrum_user
 
   # Backend Service
   - type: web
