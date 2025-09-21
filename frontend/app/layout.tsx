@@ -49,8 +49,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      {/* suppressHydrationWarning prevents React from warning when external extensions inject attributes */}
+      <body className={inter.className} suppressHydrationWarning>
         {children}
         <Toaster 
           position="top-right"

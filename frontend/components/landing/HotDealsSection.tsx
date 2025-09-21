@@ -187,7 +187,7 @@ export default function HotDealsSection() {
   }
 
   return (
-    <section className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #e6fffa 0%, #ccfbf1 50%' }}>
+    <section className="py-20 relative overflow-hidden" style={{ background: '#e6fffa' }}>
       {/* Background Decorations with #008080 */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-10 left-10 w-32 h-32 rounded-full blur-3xl animate-pulse" style={{ background: 'radial-gradient(circle, #008080, #006666)' }}></div>

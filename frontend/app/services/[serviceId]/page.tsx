@@ -17,8 +17,10 @@ interface PageProps {
   }
 }
 
-export default function ServicePage({ params }: PageProps) {
-  const { serviceId } = params
+export default async function ServicePage({ params }: PageProps) {
+  // params may be a Promise in some Next.js routing setups; await to be safe
+  const p = await params as { serviceId: string }
+  const { serviceId } = p
 
   // Check if the service ID is valid
   if (!validServiceIds.includes(serviceId)) {
@@ -36,9 +38,11 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for each service
-export function generateMetadata({ params }: PageProps) {
-  const { serviceId } = params
-  
+export async function generateMetadata({ params }: PageProps) {
+  // await params to handle possible promise
+  const p = await params as { serviceId: string }
+  const { serviceId } = p
+
   const serviceNames: Record<string, string> = {
     'safari-tours': 'Safari Tours - African Wildlife Adventures',
     'flight-booking': 'Flight Booking - Best Prices Guaranteed', 

@@ -14,11 +14,11 @@ export default function FooterSection() {
             <div className="flex items-center space-x-3 mb-6">
               <div className="h-10 w-auto">
                 <Image
-                  src="/letrum-logo-optimized.png"
+                  src="/letrum_card.png"
                   alt="Letrum Agency Logo"
                   width={100}
                   height={40}
-                  className="h-10 w-auto object-contain brightness-0 invert"
+                  className="h-10 w-auto object-contain"
                 />
               </div>
               <h3 className="text-3xl font-black">

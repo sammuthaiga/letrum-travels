@@ -103,11 +103,11 @@ export default function LoginPage() {
           <Link href="/" className="inline-flex items-center space-x-3">
             <div className="h-12 w-auto">
               <Image
-                src="/letrum-logo-optimized.png"
+                src="/letrum_card.png"
                 alt="Letrum Agency Logo"
                 width={120}
                 height={48}
-                className="h-12 w-auto object-contain brightness-0 invert"
+                className="h-12 w-auto object-contain"
               />
             </div>
             <h1 className="text-3xl font-black text-white">
