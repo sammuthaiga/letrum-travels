@@ -1,0 +1,58 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0\fswiss\fcharset0 Calibri;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red40\green167\blue69;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\b\fs28\cf1 Kejani Garage\par
+\pard\qc\b0\fs20\cf2 Flight API Integration Costs\par
+\par
+\pard\fs20\cf0 Document: Estimate for integrating third-party flight APIs (Skyscanner, Amadeus, Travelport)\par
+Client: Letrum Agencies\par
+Date: 21 Sep 2025\par
+\par
+\b Summary\b0\par
+This document provides a cost and effort estimate to integrate flight data and booking capabilities using popular providers (Skyscanner, Amadeus, Travelport). Prices are provided in Kenyan Shillings (KES) and include integration development and suggested initial provider fees where applicable.
+\par
+\b Key considerations\b0\par
+- Two levels of integration: Search & display (cheaper) vs full booking (requires booking APIs / GDS access and may need certification).
+- Provider fees vary: some offer free sandbox and pay-per-use or monthly licensing for production.
+- We recommend starting with Amadeus or Skyscanner self-service for a faster, lower-cost launch; Travelport is enterprise and significantly more expensive.
+\par
+\b Cost breakdown (development)0\par
+1. Integration planning & sandbox setup: 6 hrs × KES 6,000 = KES 36,000\par
+2. Search API integration (results, filters, paging): 24 hrs × KES 6,000 = KES 144,000\par
+3. Pricing & fare display (fares, baggage, rules): 20 hrs × KES 6,000 = KES 120,000\par
+4. Booking flow integration (create booking, PNR handling, store booking): 28 hrs × KES 6,000 = KES 168,000\par
+5. Email/e-ticket templating and confirmation wiring: 8 hrs × KES 6,000 = KES 48,000\par
+6. QA, error handling, retries, logging: 12 hrs × KES 6,000 = KES 72,000\par
+\par
+\b Development subtotal:\b0\tab KES 588,000\par
+\par
+\b Provider licensing / monthly fees (estimates)0\par
+- Amadeus (self-service / NDC tiers): sandbox free; production tiers vary — budget KES 30,000 / month for light usage, KES 100,000+ / month for higher volumes.\par
+- Skyscanner (affiliate/API): often revenue-share / affiliate model; may require partnership — budget KES 10,000 - 50,000 / month depending on contract.\par
+- Travelport (GDS): enterprise licensing; typically starts high — budget KES 200,000+ / month depending on seat volumes and features.\par
+\par
+\b One-time provider / onboarding costs (examples)0\par
+- Amadeus certification / production access admin: KES 20,000 - 80,000 (varies by account & region).\par
+- Travelport onboarding: KES 100,000+ (enterprise paperwork & certification).\par
+\par
+\b Total initial estimate (development + minimal provider fees)0\par
+- Development subtotal: KES 588,000\par
+- Initial provider budget (3 months runway for Amadeus small tier): KES 90,000\par
+\b Grand total (recommended starting budget): KES 678,000\b0\par
+\par
+\b Notes & Recommendations\b0\par
+- Start with Amadeus or Skyscanner sandbox to validate flows; keep production usage low initially.\par
+- Alternate approach (lower cost): implement search using third-party metadata (non-bookable) and route users to partner booking links (affiliate) — reduces integration and fare risk.\par
+- Travelport is recommended only for high-volume or enterprise requirements due to higher licensing and integration overhead.\par
+- All provider fees are estimates and should be confirmed during vendor discussions.
+\par
+\b Next Steps\b0\par
+1. Choose preferred provider (Amadeus recommended for booking functionality).\par
+2. Approve budget for integration development and 3 months of provider fees.\par
+3. Provide required business documents for provider onboarding (if production bookings are required).\par
+\par
+\b Contact\b0\par
+Kejani Garage — projects@kejanigarage.co.ke\par
+Phone: +254 7XX XXX XXX
+
+}
