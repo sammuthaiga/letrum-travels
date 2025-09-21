@@ -4,12 +4,8 @@
   "builds": [
     {
       "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": ".next" }
+      "use": "@vercel/next"
     }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/frontend/$1" }
   ],
   "github": {
     "enabled": true
