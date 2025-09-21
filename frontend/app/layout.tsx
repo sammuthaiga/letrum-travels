@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// Avoid runtime Google Fonts fetch to prevent build-time network timeouts on Vercel.
+// Use system font stack defined in `globals.css` instead.
 import './globals.css'
 import { Toaster } from 'sonner'
 
-const inter = Inter({ subsets: ['latin'] })
+// Use the system font stack via CSS. Remove remote font fetch to stabilize builds.
 
 export const metadata: Metadata = {
   title: 'Letrum Agency - Premier Tours & Travel Services in Kenya',
@@ -51,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       {/* suppressHydrationWarning prevents React from warning when external extensions inject attributes */}
-      <body className={inter.className} suppressHydrationWarning>
+        <body className="font-sans" suppressHydrationWarning>
         {children}
         <Toaster 
           position="top-right"
